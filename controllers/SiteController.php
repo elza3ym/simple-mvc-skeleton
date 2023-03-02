@@ -9,9 +9,9 @@ use app\core\Controller;
  * @package app\controllers
  **/
 class SiteController extends Controller {
-    protected string $layout = 'main';
+    public string $layout = 'main';
 
     public function home() {
-        return 'Hello World';
+        return $this->render('home');
     }
 }
