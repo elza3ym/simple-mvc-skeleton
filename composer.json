@@ -1,0 +1,15 @@
+{
+    "name": "elza3ym/blog_2023_03_02_mohamed_sheata",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mohamed Shehata",
+            "email": "elza3ym@icloud.com"
+        }
+    ],
+    "require": {}
+}
