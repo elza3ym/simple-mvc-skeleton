@@ -1,4 +1,5 @@
 <?php
+namespace app\models;
 
 use app\core\DbModel;
 
@@ -6,11 +7,11 @@ use app\core\DbModel;
  * @author Mohamed A. Shehata <elza3ym@icloud.com>
  **/
 class Blog extends DbModel {
-    private string $title;
-    private string $description;
-    private string $image;
+    public string $title = '';
+    public string $description = '';
+    public string $image = '';
 
-    private int $userId;
+    public int $userId = 0;
     public function fillables(): array {
         return [
             'title', 'description', 'image', 'userId'

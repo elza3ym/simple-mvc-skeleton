@@ -34,13 +34,18 @@ abstract class Model {
                 }
 
                 if ($ruleName == self::RULE_REQUIRED && !$value) {
-                    $this->addError($attribute, self::RULE_REQUIRED, $rule);
+                    $this->addError($attribute, self::RULE_REQUIRED);
+                }
+
+                if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    $this->addError($attribute, self::RULE_EMAIL);
                 }
             }
         }
+        return empty($this->errors);
     }
 
-    private function addError(string $attribute, string $rule, array $params) {
+    private function addError(string $attribute, string $rule, array $params = []) {
         $message = $this->errorMessages()[$rule] ?? '';
         foreach ($params as $key => $value) {
             $message = str_replace("{{$key}}", $value, $message);
@@ -55,5 +60,17 @@ abstract class Model {
             self::RULE_MIN => 'Min length of this field must be {min}',
             self::RULE_MAX => 'max length of this field must be {max}',
         ];
+    }
+
+    public function hasError(string $attribute) {
+        return $this->errors[$attribute] ?? false;
+    }
+
+    public function getFirstError(string $attribute) {
+        return $this->errors[$attribute][0] ?? false;
+    }
+
+    public function getLabel(string $attribute) {
+        return $this->labels()[$attribute] ?? $attribute;
     }
 }

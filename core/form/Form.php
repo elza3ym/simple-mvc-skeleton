@@ -2,6 +2,8 @@
 
 namespace app\core\form;
 
+use app\core\Model;
+
 /**
  * @author Mohamed A. Shehata <elza3ym@icloud.com>
  * @package app\core\form
@@ -16,5 +18,7 @@ class Form {
         echo '</form>';
     }
 
-
+    public function field(Model $model, string $attribute) {
+        return new Field($model, $attribute);
+    }
 }
