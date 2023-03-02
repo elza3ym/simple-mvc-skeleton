@@ -11,5 +11,7 @@
             "email": "elza3ym@icloud.com"
         }
     ],
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
 }

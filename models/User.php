@@ -34,4 +34,8 @@ class User extends DbModel {
             'password' => 'Password'
         ];
     }
+
+    public function tableName(): string {
+        return 'users';
+    }
 }

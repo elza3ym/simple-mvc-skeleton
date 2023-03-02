@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\core\Request;
+use app\core\Response;
 use app\models\Blog;
 
 /**
@@ -11,14 +12,17 @@ use app\models\Blog;
  * @package app\controllers
  **/
 class BlogController extends Controller {
-    public function create(Request $request) {
+    public function create(Request $request, Response $response) {
         $blog = new Blog();
         $blog->loadData($request->getBody());
         $params = [
             'model' => $blog
         ];
         if ($request->isPost()) {
-            var_dump($blog);
+            $blogId = $blog->save();
+            if ($blogId && $blog->validate()) {
+                $response->redirect('/blog/'.$blogId);
+            }
         }
         return $this->render('blog.create', $params);
     }

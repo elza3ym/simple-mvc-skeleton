@@ -42,4 +42,8 @@ class Blog extends DbModel {
             'image' => 'Image URL',
         ];
     }
+
+    public function tableName(): string {
+        return 'blogs';
+    }
 }

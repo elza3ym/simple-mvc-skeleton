@@ -45,7 +45,7 @@ class Router {
             $callback[0] = Application::$app->getController();
         }
 
-        return call_user_func($callback, $this->request);
+        return call_user_func($callback, $this->request, $this->response);
     }
 
     public function renderView(string $view, $params = []) {
