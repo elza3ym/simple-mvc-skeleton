@@ -12,6 +12,14 @@ class SiteController extends Controller {
     public string $layout = 'main';
 
     public function home() {
+        $params = [
+            'name' => 'Check24',
+            'posts' => [
+                'title' => 'Big scary news',
+                'description' => 'Don\'t be afraid',
+                'image' => 'image_url_scary'
+            ]
+        ];
         return $this->render('home');
     }
 }
