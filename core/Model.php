@@ -40,6 +40,13 @@ abstract class Model {
                 if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->addErrorForRule($attribute, self::RULE_EMAIL);
                 }
+
+                if ($ruleName === self::RULE_MIN) {
+                    var_dump(strlen($value) < $rule[self::RULE_MIN]);
+                    die();
+                    $this->addErrorForRule($attribute, self::RULE_MIN, $rule);
+                }
+
             }
         }
         return empty($this->errors);

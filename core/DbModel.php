@@ -33,6 +33,23 @@ abstract class DbModel extends Model {
     }
 
     public static function findOne(array $where) {
+        $statement = self::findBy($where);
+        return $statement->fetchObject(static::class);
+    }
+
+    public static function findAll() {
+        $tableName = static::tableName();
+        $primaryKey = static::primaryKey();
+        $statement = self::prepare("SELECT * FROM $tableName ORDER BY $primaryKey DESC");
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_OBJ);
+    }
+    public static function findAllBy(array $where) {
+        $statement = self::findBy($where);
+        return $statement->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    public static function findBy(array $where) {
         $tableName = static::tableName();
         $attributes = array_keys($where);
         $SQL = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
@@ -40,8 +57,7 @@ abstract class DbModel extends Model {
         foreach ($where as $key => $value) {
             $statement->bindValue(":$key", $value);
         }
-
         $statement->execute();
-        return $statement->fetchObject(static::class);
+        return $statement;
     }
 }

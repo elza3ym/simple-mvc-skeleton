@@ -33,6 +33,6 @@ $app->router->get('/logout', [AuthController::class, 'logout']);
 $app->router->get('/create-blog', [BlogController::class, 'create']);
 $app->router->post('/create-blog', [BlogController::class, 'create']);
 
-$app->router->get('/blog/1', [BlogController::class, 'view']);
+$app->router->get('/blog-post', [BlogController::class, 'view']);
 
 $app->run();

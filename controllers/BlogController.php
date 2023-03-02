@@ -21,16 +21,23 @@ class BlogController extends Controller {
         if ($request->isPost()) {
             $blogId = $blog->save();
             if ($blogId && $blog->validate()) {
-                $response->redirect('/blog/'.$blogId);
+                $response->redirect('/blog-post?id='.$blogId);
             }
         }
         return $this->render('blog.create', $params);
     }
 
-    public function view(Request $request) {
-        //TODO: When init migrations
-//        $blog = Blog::findOne['id' => $id];
-        $blog = ['title' => 'New', 'description' => 'This is good news', 'image' => 'google.com'];
+    public function view(Request $request, Response $response) {
+        $blogId = $request->getBody()['id'] ?? false;
+        if (!$blogId) {
+            $response->redirect('/');
+        }
+
+        $blog = Blog::findOne(['id' => $blogId]);
+        if (!$blog) {
+            $response->redirect('/');
+        }
+
         $params = [
             'blog' => $blog
         ];

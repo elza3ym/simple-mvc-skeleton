@@ -25,11 +25,8 @@ class User extends DbModel {
     public function rules(): array {
         return [
             'email' => [self::RULE_EMAIL, self::RULE_REQUIRED],
-            'password' => [
-                self::RULE_MIN,
-                [ self::RULE_MIN, 8 ]
-            ]
-        ];
+            'password' => [self::RULE_REQUIRED]
+            ];
     }
 
     public function labels(): array {

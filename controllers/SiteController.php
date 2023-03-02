@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\core\Controller;
+use app\models\Blog;
 
 /**
  * @author Mohamed A. Shehata <elza3ym@icloud.com>
@@ -12,14 +13,10 @@ class SiteController extends Controller {
     public string $layout = 'main';
 
     public function home() {
+        $blogs = Blog::findAll();
         $params = [
-            'name' => 'Check24',
-            'posts' => [
-                'title' => 'Big scary news',
-                'description' => 'Don\'t be afraid',
-                'image' => 'image_url_scary'
-            ]
+            'blogs' => $blogs
         ];
-        return $this->render('home');
+        return $this->render('home', $params);
     }
 }
