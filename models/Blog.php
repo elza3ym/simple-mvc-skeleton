@@ -43,7 +43,11 @@ class Blog extends DbModel {
         ];
     }
 
-    public function tableName(): string {
+    public static function tableName(): string {
         return 'blogs';
+    }
+
+    public static function primaryKey(): string {
+        return 'id';
     }
 }

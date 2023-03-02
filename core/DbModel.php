@@ -9,7 +9,9 @@ namespace app\core;
 abstract class DbModel extends Model {
 
     abstract public function fillables(): array;
-    abstract public function tableName(): string;
+    abstract public static function primaryKey(): string;
+
+    abstract public static function tableName(): string;
     public function save() {
         $tableName = $this->tableName();
         $attributes = $this->fillables();
@@ -28,5 +30,18 @@ abstract class DbModel extends Model {
     }
     private static function prepare($sql) {
         return Application::$app->db->pdo->prepare($sql);
+    }
+
+    public static function findOne(array $where) {
+        $tableName = static::tableName();
+        $attributes = array_keys($where);
+        $SQL = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
+        $statement = self::prepare("SELECT * FROM $tableName WHERE $SQL");
+        foreach ($where as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+
+        $statement->execute();
+        return $statement->fetchObject(static::class);
     }
 }

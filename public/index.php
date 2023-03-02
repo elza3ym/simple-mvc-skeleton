@@ -12,11 +12,12 @@ $dotenv->load();
 
 // TODO: create secure vault to store the db credentials
 $config = [
+    'userClass' => \app\models\User::class,
     'db' => [
         'dsn' => $_ENV['DB_DSN'],
         'user' => $_ENV['DB_USER'],
         'password' => $_ENV['DB_PASSWORD'],
-        'dbname' => 'check24'
+        'dbname' => $_ENV['DB_NAME']
     ]
 ];
 
@@ -26,6 +27,8 @@ $app->router->get('/', [SiteController::class, 'home']);
 
 $app->router->get('/login', [AuthController::class, 'login']);
 $app->router->post('/login', [AuthController::class, 'login']);
+
+$app->router->get('/logout', [AuthController::class, 'logout']);
 
 $app->router->get('/create-blog', [BlogController::class, 'create']);
 $app->router->post('/create-blog', [BlogController::class, 'create']);
